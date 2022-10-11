@@ -8,37 +8,22 @@ public class CreateData {
     private String[] courses=new String[]{"课程A","课程B","课程C","课程D","课程E"};
     private PreparedStatement ps;
     private String sql;
-    private int[][] studetail=new int[80][2];
+    private int[][] studetail=new int[90][2];
 
 
-    public CreateData(int highgradesp,int classcommitteep) {
+    public CreateData(int highgradesp,int classcommitteep,Connection connection) {
         this.highgradesp=highgradesp;
         this.classcommitteep=classcommitteep;
+        this.connection=connection;
     }
 
-    public Connection getConnection() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("数据库驱动加载成功");
-        } catch (ClassNotFoundException var3) {
-            var3.printStackTrace();
-        }
 
-        try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/software?useSSL=false", "root", "www.7k7k.com");
-            System.out.println("数据库连接成功");
-        } catch (SQLException var2) {
-            var2.printStackTrace();
-        }
-
-        return this.connection;
-    }
 
     public void create() {
-        Connection connection=getConnection();
+
         Random random=new Random();
-        int []student=new int[80];
-        for(int i=0;i<80;i++)
+        int []student=new int[90];
+        for(int i=0;i<90;i++)
         {
             studetail[i][0]=random.nextInt(101)>(100-highgradesp)?1:0;
             studetail[i][1]=random.nextInt(101)>(100-classcommitteep)?1:0;
@@ -52,9 +37,9 @@ public class CreateData {
                 sql = "drop table " + "stuDetail";
                 ps = connection.prepareStatement(sql);
                 ps.executeUpdate();
-                System.out.println("该表已经存在");
+               // System.out.println("该表已经存在");
             }
-            sql="create table stuDetail (id int primary key ,highgrades  tinyint(1), classcommittee tinyint(1),flag tinyint(1))";
+            sql="create table stuDetail (id int primary key ,highgrades  tinyint(1), classcommittee tinyint(1),flag tinyint(1), wrongtimes int(2))";
             ps=connection.prepareStatement(sql);
             ps.executeUpdate();
 
@@ -62,15 +47,16 @@ public class CreateData {
             e.printStackTrace();
         }
 
-        for(int i=0;i<80;i++)
+        for(int i=0;i<90;i++)
         {
-            sql = "insert into " + "stuDetail"+ "(id,highgrades,classcommittee,flag)" + " value(?,?,?,?)";
+            sql = "insert into " + "stuDetail"+ "(id,highgrades,classcommittee,flag,wrongtimes)" + " value(?,?,?,?,?)";
             try {
                 ps = connection.prepareStatement(sql);
                 ps.setInt(1, i);
                 ps.setInt(2, studetail[i][0]);
                 ps.setInt(3, studetail[i][1]);
                 ps.setInt(4, 0);
+                ps.setInt(5, 0);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -96,7 +82,7 @@ public class CreateData {
                     sql = "drop table " + courses[i];
                     ps = connection.prepareStatement(sql);
                     ps.executeUpdate();
-                    System.out.println("该表已经存在");
+                   // System.out.println("该表已经存在");
                 }
                 sql="create table "+courses[i]+" (id int primary key ,stuId varchar(500))";
                 ps=connection.prepareStatement(sql);
@@ -111,12 +97,12 @@ public class CreateData {
            {
                stuId+=","+samling[i][j];
            }
-            String[] allStuId=new String[80];
-            for(int j=0;j<80;j++) {
+            String[] allStuId=new String[90];
+            for(int j=0;j<90;j++) {
                 allStuId[j]=stuId;
                 int ranstu=random.nextInt(4);
                 for (int k = 0; k < ranstu; k++) {
-                    String id = String.valueOf(random.nextInt(80));
+                    String id = String.valueOf(random.nextInt(90));
                     if (stuId.contains(id)) {
                         k--;
                     } else {
@@ -125,7 +111,7 @@ public class CreateData {
                 }
             }
 
-            for(int j=0;j<80;j++) {
+            for(int j=0;j<90;j++) {
                 sql = "insert into " + courses[i] + "(id,stuId)" + " value(?,?)";
                 try {
                     ps = connection.prepareStatement(sql);
