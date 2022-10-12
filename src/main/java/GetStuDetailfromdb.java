@@ -14,7 +14,6 @@ public class GetStuDetailfromdb {
 
     public int[][] get()
     {
-
         int [][] studetail=new int[90][5];
         sql="select id,highgrades,classcommittee,flag,wrongtimes from studetail ";
         try {

@@ -14,7 +14,6 @@ public class RollCallTest {
         } catch (ClassNotFoundException var3) {
             var3.printStackTrace();
         }
-
         try {
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/software?useSSL=false", "root", "www.7k7k.com");
             System.out.println("数据库连接成功");
@@ -26,13 +25,13 @@ public class RollCallTest {
     public static void main(String[] args) {
         int total = 0, valid = 0;
         Connection connection=getConnection();
-        for(int l=0;l<1;l++) {
+        for(int l=0;l<5;l++) {
             CreateData createData = new CreateData(50, 50, connection);
             createData.create();
             GetData getData = new GetData(connection);
             GetStuDetailfromdb getStuDetailfromdb = new GetStuDetailfromdb(connection);
             MarkData markData = new MarkData(connection);
-            for (int i = 0; i < 1; i++) {
+            int i=0;
                 for (int j = 0; j < 20; j++) {
                     String str[] = getData.get(i, j).split(",");
                     int[] stuId = new int[str.length];//生成数据集中没有到课的同学
@@ -59,7 +58,6 @@ public class RollCallTest {
                         }
                     }
                 }
-            }
         }
         System.out.println();
         System.out.println("总次数"+total);
