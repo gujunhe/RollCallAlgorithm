@@ -23,4 +23,4 @@
 运行RollCallTest.java即可，控制台会打印每次算法生成的点名队列、有效点名次数、总点名次数、e值。
 
 ## 使用说明
-需要在Mysql数据中创建名为software的数据库，并修改RollCallTest.java中数据库连接的用户名和密码。
+需要在Mysql数据库中创建名为software的数据库，并修改RollCallTest.java中数据库连接的用户名和密码。
