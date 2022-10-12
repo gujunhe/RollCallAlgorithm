@@ -9,16 +9,11 @@ public class CreateData {
     private PreparedStatement ps;
     private String sql;
     private int[][] studetail=new int[90][2];
-
-
     public CreateData(int highgradesp,int classcommitteep,Connection connection) {
         this.highgradesp=highgradesp;
         this.classcommitteep=classcommitteep;
         this.connection=connection;
     }
-
-
-
     public void create() {
 
         Random random=new Random();

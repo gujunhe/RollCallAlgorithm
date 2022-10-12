@@ -26,7 +26,7 @@ public class RollCallTest {
         int total = 0, valid = 0;
         Connection connection=getConnection();
         for(int l=0;l<5;l++) {//课程次数
-            CreateData createData = new CreateData(50, 50, connection);
+            CreateData createData = new CreateData(50, 50, connection);//设置高绩点和是否为班委的比例
             createData.create();
             GetData getData = new GetData(connection);
             GetStuDetailfromdb getStuDetailfromdb = new GetStuDetailfromdb(connection);
@@ -50,13 +50,13 @@ public class RollCallTest {
                         int k = 0;
                         for (k = 0; k < stuId.length; k++) {
                             if (integer == stuId[k]) {
-                                valid++;
-                                markData.Mark(stuId[k]);
+                                valid++;//若算法生成的学生id和数据集中的学生Id一致则有效次数+1
+                                markData.Mark(stuId[k]);//并标记为经常逃课的学生
                                 break;
                             }
                         }
                         if (k == stuId.length) {
-                            markData.increasewt(integer);
+                            markData.increasewt(integer);//增加点名错误次数,若多次错误则下次不点,提高e值
                         }
                     }
                 }
