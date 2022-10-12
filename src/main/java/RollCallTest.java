@@ -25,13 +25,15 @@ public class RollCallTest {
     public static void main(String[] args) {
         int total = 0, valid = 0;
         Connection connection=getConnection();
-        for(int l=0;l<5;l++) {
+        for(int l=0;l<5;l++) {//课程次数
             CreateData createData = new CreateData(50, 50, connection);
             createData.create();
             GetData getData = new GetData(connection);
             GetStuDetailfromdb getStuDetailfromdb = new GetStuDetailfromdb(connection);
             MarkData markData = new MarkData(connection);
             int i=0;
+            System.out.println();
+            System.out.print("课程"+l);
                 for (int j = 0; j < 20; j++) {
                     String str[] = getData.get(i, j).split(",");
                     int[] stuId = new int[str.length];//生成数据集中没有到课的同学

@@ -65,7 +65,8 @@ public class CreateData {
         //选取缺席的5-8同学
         int [][]samling=new int[5][8];
         for (int i = 0; i < 5; i++) {
-            samling[i]=sampling(student,random.nextInt(4)+5);
+            //samling[i]=sampling(student,random.nextInt(4)+5);5到8人
+            samling[i]=sampling(student,8);//固定为8人
         }
 
 
